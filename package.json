@@ -18,5 +18,8 @@
     "shell"
   ],
   "author": "Antti Sykäri",
-  "license": "BSD"
+  "license": "BSD",
+  "bin": {
+  	"watch-file": "./bin/watch-file"
+  }
 }
