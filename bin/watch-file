@@ -4,7 +4,23 @@
 var fs = require('fs');
 var crypto = require('crypto');
 
-var args = process.argv.splice(2)
+var optimist = require('optimist');
+
+var usage =
+"Wait until one of the files changes, then exit.\n\n\
+Usage: watch-file <files...>";
+
+var argv =  optimist
+	.usage(usage)
+	.boolean('h')
+	.alias('h', 'help')
+	.describe('h', 'Help')
+	.argv;
+
+if (argv.help) {
+	process.stdout.write(optimist.help());
+	process.exit(0);
+}
 
 var fileHashes = Object.create(null);
 
@@ -22,7 +38,9 @@ function hashFile(filename) {
 	}
 };
 
-args.forEach(function(filename) {
+var filenames = argv._;
+
+filenames.forEach(function(filename) {
 	var hash = hashFile(filename);
 
 	fileHashes[filename] = hash;

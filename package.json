@@ -20,6 +20,9 @@
   "author": "Antti Sykäri",
   "license": "BSD",
   "bin": {
-  	"watch-file": "./bin/watch-file"
+    "watch-file": "./bin/watch-file"
+  },
+  "dependencies": {
+    "optimist": "~0.3.5"
   }
 }
