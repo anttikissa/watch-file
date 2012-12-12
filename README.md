@@ -1,10 +1,10 @@
 # watch-file
 
-Shell utility for watching file for changes.
+Shell utility for watching file changes.
 
 Intended to be used like:
 
-	> while watch-file test.c; do gcc test.c -o test && ./test; done
+	while watch-file test.c; do gcc test.c -o test && ./test; done
 
 ## Usage
 
