@@ -16,5 +16,5 @@ Install npm.  (Comes with [Node.js](http://nodejs.org/)).
 
 	watch-file <files...>
 
-Watches all files specified as arguments.  When one of them changes, exits.
+Wait until one of the files changes, then exit.
 
