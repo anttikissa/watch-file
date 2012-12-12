@@ -1,6 +1,6 @@
 {
   "name": "watch-file",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Shell utility for watching file changes.",
   "main": "watch-file.js",
   "scripts": {
