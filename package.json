@@ -1,7 +1,7 @@
 {
   "name": "watch-file",
-  "version": "0.0.1",
-  "description": "Watch file for changes, then exit.",
+  "version": "0.0.2",
+  "description": "Shell utility for watching file changes.",
   "main": "watch-file.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
