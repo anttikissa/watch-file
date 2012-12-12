@@ -14,7 +14,7 @@ var argv =  optimist
 	.usage(usage)
 	.boolean('h')
 	.alias('h', 'help')
-	.describe('h', 'Help')
+//	.describe('h', 'Help')
 	.argv;
 
 if (argv.help) {
