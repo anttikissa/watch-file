@@ -1,0 +1,22 @@
+{
+  "name": "watch-file",
+  "version": "0.0.1",
+  "description": "Watch file for changes, then exit.",
+  "main": "watch-file.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anttisykari/watch-file.git"
+  },
+  "keywords": [
+    "watch",
+    "file",
+    "util",
+    "tool",
+    "shell"
+  ],
+  "author": "Antti Sykäri",
+  "license": "BSD"
+}
