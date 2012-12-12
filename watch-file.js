@@ -1,11 +1,30 @@
 var fs = require('fs');
+var crypto = require('crypto');
 
 var args = process.argv.splice(2)
 
-args.forEach(function(file) {
-	console.log(file);
-	fs.watch(file, function(event, filename) {
-		process.exit(0);
+var fileHashes = Object.create(null);
+
+function hashFile(filename) {
+	var contents = fs.readFileSync(filename);
+	var sha1 = crypto.createHash('sha1');
+	sha1.update(contents);
+	return sha1.digest('hex');
+};
+
+args.forEach(function(filename) {
+	var hash = hashFile(filename);
+
+	fileHashes[filename] = hash;
+
+	fs.watchFile(filename, { interval: 123 }, function(event, _) {
+//		console.log("File " + filename + ": got watch event.");
+		if (fs.existsSync(filename)) {
+			hash = hashFile(filename);
+			if (hash != fileHashes[filename]) {
+//				console.log("File " + filename + " was actually changed.");
+				process.exit(0);
+			} 
+		}
 	});
 });
-
