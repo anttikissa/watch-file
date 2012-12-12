@@ -9,10 +9,17 @@ var args = process.argv.splice(2)
 var fileHashes = Object.create(null);
 
 function hashFile(filename) {
-	var contents = fs.readFileSync(filename);
-	var sha1 = crypto.createHash('sha1');
-	sha1.update(contents);
-	return sha1.digest('hex');
+	try {
+		var contents = fs.readFileSync(filename);
+		var sha1 = crypto.createHash('sha1');
+		sha1.update(contents);
+		return sha1.digest('hex');
+	} catch (err) {
+		if (err.code == 'ENOENT') {
+			console.log("No such file: " + filename);
+		}
+		process.exit(1);
+	}
 };
 
 args.forEach(function(filename) {
@@ -20,15 +27,15 @@ args.forEach(function(filename) {
 
 	fileHashes[filename] = hash;
 
-	fs.watchFile(filename, { interval: 123 }, function(event, _) {
-//		console.log("File " + filename + ": got watch event.");
-		if (fs.existsSync(filename)) {
-			hash = hashFile(filename);
-			if (hash != fileHashes[filename]) {
-//				console.log("File " + filename + " was actually changed.");
-				process.exit(0);
-			} 
-		}
-	});
+		fs.watchFile(filename, { interval: 123 }, function(event, _) {
+	//		console.log("File " + filename + ": got watch event.");
+			if (fs.existsSync(filename)) {
+				hash = hashFile(filename);
+				if (hash != fileHashes[filename]) {
+	//				console.log("File " + filename + " was actually changed.");
+					process.exit(0);
+				} 
+			}
+		});
 });
 
