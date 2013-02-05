@@ -33,6 +33,8 @@ function hashFile(filename) {
 	} catch (err) {
 		if (err.code == 'ENOENT') {
 			console.log("No such file: " + filename);
+		} else {
+			console.log("Error: " + err.code + ", filename: " + filename);
 		}
 		process.exit(1);
 	}
