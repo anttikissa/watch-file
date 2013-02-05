@@ -43,19 +43,29 @@ function hashFile(filename) {
 var filenames = argv._;
 
 filenames.forEach(function(filename) {
+	if (!fs.existsSync(filename)) {
+		console.log("File does not exist: " + filename);
+		return;
+	}
+	
+	if (!fs.statSync(filename).isFile()) {
+		console.log("Not a file, ignoring: " + filename);
+		return;
+	}
+	
 	var hash = hashFile(filename);
 
 	fileHashes[filename] = hash;
 
-		fs.watchFile(filename, { interval: 123 }, function(event, _) {
-	//		console.log("File " + filename + ": got watch event.");
-			if (fs.existsSync(filename)) {
-				hash = hashFile(filename);
-				if (hash != fileHashes[filename]) {
-	//				console.log("File " + filename + " was actually changed.");
-					process.exit(0);
-				} 
-			}
-		});
+	fs.watchFile(filename, { interval: 123 }, function(event, _) {
+//		console.log("File " + filename + ": got watch event.");
+		if (fs.existsSync(filename)) {
+			hash = hashFile(filename);
+			if (hash != fileHashes[filename]) {
+//				console.log("File " + filename + " was actually changed.");
+				process.exit(0);
+			} 
+		}
+	});
 });
 
