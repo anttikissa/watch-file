@@ -6,19 +6,9 @@ var crypto = require('crypto');
 
 var optimist = require('optimist');
 
-var usage =
-"Wait until one of the files changes, then exit.\n\n\
-Usage: watch-file <files...>";
-
-var argv =  optimist
-	.usage(usage)
-	.boolean('h')
-	.alias('h', 'help')
-//	.describe('h', 'Help')
-	.argv;
-
-if (argv.help) {
-	process.stdout.write(optimist.help());
+if (process.argv.length == 2) {
+	console.log('watch-file -- wait until one of the files changes, then exit.');
+	console.log('Usage: watch-file <files...>');
 	process.exit(0);
 }
 
@@ -40,7 +30,7 @@ function hashFile(filename) {
 	}
 };
 
-var filenames = argv._;
+var filenames = process.argv.slice(2);
 
 filenames.forEach(function(filename) {
 	if (!fs.existsSync(filename)) {
